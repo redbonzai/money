@@ -7,7 +7,40 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
-## [4.x] - Unreleased
+## [Unreleased]
+
+
+## [4.0.4] - 2022-05-18
+
+### Added
+
+- Full PHP8.1 compatibility (#670)
+
+### Changes
+
+- Dropped mutation testing as the library owners are unfamiliar with it
+- CHANGELOG BC change improvement
+
+## [4.0.3] - 2021-12-01
+
+### Fixed
+
+- `jsonSerialize` return types, resulting in no PHP 8.1 warnings.
+- Documentation CI pipeline failure.
+
+
+## [4.0.2] - 2021-06-30
+
+### Changes
+
+- Added all extensions to `composer.json`, including those bundled with PHP.
+
+### Fixed
+
+- Remove all `empty` uses. Money values of '0' gave an assertion error in decimal formats (#655)
+
+
+## [4.0.1] - 2021-05-25
 
 ### Changed
 
@@ -28,6 +61,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 - **[BC break]** BC Math required as it is the default calculator
+- **[BC break]** The methods `multiply` and `divide` do not accept floating points any more. Callers are required to
+  convert a float to string (e.g. `sprintf('%.14F', $float)`) before calling these methods.
+- **[BC break]** The constructor of the `FixedExchange` does not accept floating points any more. Callers are required to
+convert a float to string (e.g. `sprintf('%.14F', $float)`) before calling the constructor.
 - Allow multiple arguments to `Money#isSameCurrency`
 - Renamed second parameter of `Parser#parse` to `$fallbackCurrency`
 
@@ -44,9 +81,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Removed
 
-- **[BC break]** Removed PhpCalculator
+- **[BC break]** Removed `PhpCalculator`
 - **[BC break]** Removed `Currency#isAvailableWithin()`
-- **[BC break]** Removed string as allowed parameter for `MoneyParser#parse`
+- **[BC break]** Removed string as allowed type for second parameter to `MoneyParser#parse`, only Currency objects are accepted now
 - **[BC break]** Completely remove float usage, methods now return numeric-strings
 
 
@@ -378,8 +415,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - 2013-01-08 Use vendor/autoload.php instead of lib/bootstrap.php (or use PSR-0 autolaoding)
 - 2012-12-10 Renamed Money::getUnits() to Money::getAmount()
 
-
-[Unreleased]: https://github.com/moneyphp/money/compare/v3.3.0...HEAD
+[Unreleased]: https://github.com/moneyphp/money/compare/v4.0.3...HEAD
+[4.0.3]: https://github.com/moneyphp/money/compare/v4.0.2...v4.0.3
+[4.0.2]: https://github.com/moneyphp/money/compare/v4.0.1...v4.0.2
+[4.0.1]: https://github.com/moneyphp/money/compare/v4.0.0...v4.0.1
+[4.0.0]: https://github.com/moneyphp/money/compare/v3.3.1...v4.0.0
+[3.3.1]: https://github.com/moneyphp/money/compare/v3.3.0...v3.3.1
 [3.3.0]: https://github.com/moneyphp/money/compare/v3.2.1...v3.3.0
 [3.2.1]: https://github.com/moneyphp/money/compare/v3.2.0...v3.2.1
 [3.2.0]: https://github.com/moneyphp/money/compare/v3.1.3...v3.2.0

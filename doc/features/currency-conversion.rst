@@ -20,7 +20,7 @@ You can use a fixed exchange to convert `Money` into another Currency.
 
     $exchange = new FixedExchange([
         'EUR' => [
-            'USD' => 1.25
+            'USD' => '1.25'
         ]
     ]);
 
@@ -52,7 +52,7 @@ define the currency pairs in both directions.
 
     $exchange = new ReversedCurrenciesExchange(new FixedExchange([
         'EUR' => [
-            'USD' => 1.25
+            'USD' => '1.25'
         ]
     ]));
 
@@ -72,7 +72,7 @@ the ``Money\Exchange`` interface.
 Swap
 ^^^^
 
-Swap_ is a currency exchanger library widespread in the PHP ecosystem. You can install it via Composer_:
+Swap_ is a currency exchange library widespread in the PHP ecosystem. You can install it via Composer_:
 
 .. code:: bash
 

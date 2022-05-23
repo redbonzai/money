@@ -27,7 +27,6 @@ final class Currency implements JsonSerializable
     /** @psalm-param non-empty-string $code */
     public function __construct(string $code)
     {
-        /** @psalm-var non-empty-string $this->code */
         $this->code = strtoupper($code);
     }
 
@@ -54,12 +53,7 @@ final class Currency implements JsonSerializable
         return $this->code;
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @return string
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): string
     {
         return $this->code;
     }

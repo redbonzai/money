@@ -328,7 +328,7 @@ final class Money implements JsonSerializable
         }, $ratios);
 
         while (self::$calculator::compare($remainder, '0') > 0) {
-            $index           = ! empty($fractions) ? array_keys($fractions, max($fractions))[0] : 0;
+            $index           = $fractions !== [] ? array_keys($fractions, max($fractions))[0] : 0;
             $results[$index] = new self(self::$calculator::add($results[$index]->amount, '1'), $results[$index]->currency);
             $remainder       = self::$calculator::subtract($remainder, '1');
             unset($fractions[$index]);
@@ -353,6 +353,8 @@ final class Money implements JsonSerializable
     }
 
     /**
+     * @psalm-return numeric-string
+     *
      * @throws InvalidArgumentException if the given $money is zero.
      */
     public function ratioOf(Money $money): string
@@ -449,9 +451,9 @@ final class Money implements JsonSerializable
     /**
      * {@inheritdoc}
      *
-     * @return array
+     * @psalm-return array{amount: string, currency: string}
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'amount' => $this->amount,
