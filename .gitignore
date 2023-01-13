@@ -8,3 +8,5 @@
 /vendor/
 
 doc/_build/
+composer.lock
+.idea/
