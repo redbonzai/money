@@ -260,6 +260,20 @@ final class MoneyTest extends TestCase
     /**
      * @test
      */
+    public function itThrowsWhenCalculatingModulusOfDifferentCurrencies(): void
+    {
+        $money      = new Money(self::AMOUNT, new Currency(self::CURRENCY));
+        $rightMoney = new Money(self::OTHER_AMOUNT, new Currency(self::OTHER_CURRENCY));
+
+        $this->expectException(InvalidArgumentException::class);
+
+        /** @psalm-suppress UnusedMethodCall this method throws */
+        $money->mod($rightMoney);
+    }
+
+    /**
+     * @test
+     */
     public function itConvertsToJson(): void
     {
         self::assertEquals(
@@ -313,6 +327,19 @@ final class MoneyTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         $six->ratioOf($zero);
+    }
+
+    /**
+     * @test
+     */
+    public function itThrowsWhenCalculatingRatioOfDifferentCurrencies(): void
+    {
+        $money      = new Money(self::AMOUNT, new Currency(self::CURRENCY));
+        $rightMoney = new Money(self::OTHER_AMOUNT, new Currency(self::OTHER_CURRENCY));
+
+        $this->expectException(InvalidArgumentException::class);
+
+        $money->ratioOf($rightMoney);
     }
 
     /**
@@ -557,6 +584,7 @@ final class MoneyTest extends TestCase
             [1250, 2, 1200, Money::ROUND_DOWN],
             [1250, 2, 1300, Money::ROUND_HALF_POSITIVE_INFINITY],
             [1250, 2, 1200, Money::ROUND_HALF_NEGATIVE_INFINITY],
+            [10, 2, 0, Money::ROUND_HALF_UP],
         ];
     }
 }
